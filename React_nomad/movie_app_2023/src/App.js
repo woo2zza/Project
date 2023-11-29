@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import PropTypes from "prop-types"
 
+function Food({ name }) {
+  return <h1>I like {name}</h1>
+
+}
+
+Food.propTypes = {
+  name: PropTypes.object.isRequired
+}
+
+const foodlist = [
+  { name: 'kimchi' },
+  { name: 'bibimbap' },
+  { name: 'chicken' },
+  { name: 'pizza' },
+  { name: 'kimbap' },
+  { name: 'noodle' },
+]
+
+function renderFood(dish){
+  return <Food 
+      key={dish.name}
+      name={dish.name} />
+}
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {foodlist.map(renderFood)}
     </div>
   );
 }
 
 export default App;
+
+
