@@ -1,35 +1,39 @@
-import PropTypes from "prop-types"
+import React from 'react'
+import axios from "axios"
+import Movie from './Movie'
 
-function Food({ name }) {
-  return <h1>I like {name}</h1>
+class App extends React.Component {
+  state = {
+    isLoading: true,
+    movies : []
+  }
 
+
+  getMovies = async () =>  { 
+    const { data : { data : {movies} }} = await axios.get('https://yts-proxy.now.sh/list_movies.json?sort_by=rating')
+    this.setState({movies : movies, isLoading : false})
+  }
+
+  componentDidMount() {
+    this.getMovies()
+  }
+
+
+  render() {
+    const { isLoading, movies } = this.state
+    return (
+      <div>{ isLoading ? "Loading" : movies.map(movie => {
+        return (
+        <Movie 
+        key={movie.id}
+        id={movie.id} 
+        year={movie.year} 
+        title={movie.title} 
+        summary={movie.summary} 
+        poster={movie.medium_cover_image}/>)
+      }) }</div>
+    )
+  }
 }
 
-Food.propTypes = {
-  name: PropTypes.object.isRequired
-}
-
-const foodlist = [
-  { name: 'kimchi' },
-  { name: 'bibimbap' },
-  { name: 'chicken' },
-  { name: 'pizza' },
-  { name: 'kimbap' },
-  { name: 'noodle' },
-]
-
-function renderFood(dish){
-  return <Food 
-      key={dish.name}
-      name={dish.name} />
-}
-function App() {
-  return (
-    <div>
-      {foodlist.map(renderFood)}
-    </div>
-  );
-}
-export default App;
-
-
+export default App
