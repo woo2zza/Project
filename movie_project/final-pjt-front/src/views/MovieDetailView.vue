@@ -210,6 +210,8 @@ onMounted(() => {
   color: #ffea00;
 }
 
+
+
 .uncheck {
   display: none;
 }
