@@ -214,6 +214,7 @@ onMounted(() => {
   display: none;
 }
 
+
 .btn {
   color: white;
   background-color: rgba(96, 61, 116, 0.548);
